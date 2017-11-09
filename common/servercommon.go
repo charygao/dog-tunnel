@@ -154,15 +154,15 @@ func (s *ClientInfo) AddClient(conn net.Conn, clientInfo ClientSetting) {
 	id := GetId(s.ServerName)
 	s.ClientMap[conn] = &Session{ClientA: conn, ClientB: s.Conn, Method: "udp", OverTime: 0, Status: "init", Id: id, Setting: clientInfo, Quit: make(chan bool), MakeHoleResponseN: 0, MakeHoleHasFail: false}
 	s.Id2Session[id] = s.ClientMap[conn]
-	if s.ClientMap[conn].Setting.Mode == 2 {
-		s.ClientMap[conn].StartCSMode()
-	} else {
+	// if s.ClientMap[conn].Setting.Mode == 2 {
+	// 	s.ClientMap[conn].StartCSMode()
+	// } else {
 		if clientInfo.AesKey != "" {
 			Write(s.Conn, id, "aeskey", clientInfo.AesKey)
 		}
 		n := clientInfo.PipeNum
 		s.ClientMap[conn].StartSession(n, s.ServerName, id)
-	}
+	// }
 }
 
 func (s *ClientInfo) Loop() {
