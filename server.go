@@ -113,11 +113,11 @@ func handleResponse(conn net.Conn, id string, action string, content string) {
 		if clientInfo.ClientType == "reg" {
 			var user *auth.User
 			if bUseDB {
-				if clientInfo.AccessKey == "" {
-					user, _ = auth.GetUser("test")
-				} else {
+				// if clientInfo.AccessKey == "" {
+				// 	user, _ = auth.GetUser("test")
+				// } else {
 					user, _ = auth.GetUserByKey(clientInfo.AccessKey)
-				}
+				// }
 			} else {
 				user = &auth.User{UserType: auth.UserType_Admin}
 			}
@@ -248,14 +248,14 @@ func handleResponse(conn net.Conn, id string, action string, content string) {
 						if session.Method == "udp" {
 							session.RestartSession(server.ServerName)
 						} else if session.Method == "restart" {
-							if session.Setting.Mode == 0 {
-								tmp := session.ClientA
-								session.ClientA = session.ClientB
-								session.ClientB = tmp
-								session.StartCSMode()
-							} else {
+							// if session.Setting.Mode == 0 {
+							// 	tmp := session.ClientA
+							// 	session.ClientA = session.ClientB
+							// 	session.ClientB = tmp
+							// 	session.StartCSMode()
+							// } else {
 								server.DelClient(session.ClientB)
-							}
+							// }
 						} else {
 							server.DelClient(session.ClientA)
 						}
